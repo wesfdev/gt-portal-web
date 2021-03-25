@@ -1,0 +1,10 @@
+<h2 mat-dialog-title>Carga de archivo</h2>
+<mat-dialog-content class="mat-typography">
+  <h3>Subir archivo</h3>
+  <p>Por favor seleccionar un archivo en formato CSV.</p>
+  <input type="file" class="upload" (change)="uploadFile($event.target.files)">
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">Cancelar</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Enviar archivo</button>
+</mat-dialog-actions>

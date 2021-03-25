@@ -1,0 +1,71 @@
+<div style="width: 95%;   margin: 1rem;  padding: 1rem;">
+    <mat-card>
+      <h2>Registro (Canales Autorizados)</h2>
+      <form [formGroup]="formChannel" novalidate >
+        
+          <mat-form-field class="ingress-full-width">
+            <input matInput placeholder="Código" formControlName="code" type="text">
+            <div *ngIf="formChannel.get('code').errors && formChannel.get('code').dirty">
+              <p *ngIf="formChannel.get('code').hasError('required')">El campo es requerido</p>
+            </div>
+          </mat-form-field>  
+
+        <mat-form-field class="ingress-full-width">
+          <input matInput placeholder="Nombre" formControlName="name" type="text">
+          <div *ngIf="formChannel.get('name').errors && formChannel.get('name').dirty">
+            <p *ngIf="formChannel.get('name').hasError('required')">El campo es requerido</p>
+          </div>
+        </mat-form-field> 
+
+        <div>
+            <button mat-button color="primary" (click)="saveChannel()">Guardar</button>
+            <button mat-button color="primary" (click)="clearForm()">Cancelar</button>
+        </div>
+      </form>
+    </mat-card>
+  </div>
+
+
+  <div class="mat-elevation-z8" style="width:95%; margin: 1rem;  padding: 1rem;">
+  
+    <div *ngIf="loading" style="margin-left:10px">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+  
+    <mat-paginator 
+      [length]="length"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="pageSizeOptions"
+      (page)="pageEvent = getServerData($event)">
+    </mat-paginator>
+  
+    <table mat-table [dataSource]="dataSource">
+  
+    <ng-container matColumnDef="code">
+      <th mat-header-cell *matHeaderCellDef> Código </th>
+      <td mat-cell *matCellDef="let element"> {{element.code}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Nombre </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}}</td>
+    </ng-container>
+  
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Acciones </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button (click)="editChannel(element)">
+          <mat-icon matTooltip="Editar canal">edit</mat-icon>
+        </button>
+  
+        <button mat-icon-button (click)="deleteChannel(element)">
+          <mat-icon matTooltip="Eliminar canal">delete</mat-icon>
+        </button>      
+      </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  </div>
+  

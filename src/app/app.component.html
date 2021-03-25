@@ -1,0 +1,20 @@
+
+<div *ngIf="loading" style="margin-left:10px">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
+
+<mat-toolbar>
+  <mat-toolbar-row>
+    <img src="../assets/images/verified.svg" alt="verified" height="50" width="50">&nbsp;&nbsp;&nbsp;
+    <span>  Portal Web</span>
+  </mat-toolbar-row>
+
+</mat-toolbar>
+
+<div class="row">
+  <mat-tab-group>
+    <mat-tab label="Distribuidor"> <app-distributor></app-distributor> </mat-tab>
+    <mat-tab label="Producto"> <app-product></app-product> </mat-tab>
+    <mat-tab label="Canales"> <app-channel></app-channel> </mat-tab>
+  </mat-tab-group>    
+</div>

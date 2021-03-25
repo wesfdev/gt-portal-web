@@ -1,0 +1,104 @@
+<div style="width: 95%;   margin: 1rem;  padding: 1rem;">
+    <mat-card>
+      <h2>Registro (Distribuidor)</h2>
+      <form [formGroup]="formDistributor" novalidate >
+
+        <mat-form-field class="ingress-full-width">
+          <input matInput placeholder="Nombre" formControlName="name" type="text">
+          <div *ngIf="formDistributor.get('name').errors && formDistributor.get('name').dirty">
+            <p *ngIf="formDistributor.get('name').hasError('required')">El campo es requerido</p>
+          </div>
+        </mat-form-field>  
+        
+          <mat-form-field class="ingress-full-width">
+            <input matInput placeholder="Código" formControlName="code" type="text">
+            <div *ngIf="formDistributor.get('code').errors && formDistributor.get('code').dirty">
+              <p *ngIf="formDistributor.get('code').hasError('required')">El campo es requerido</p>
+            </div>
+          </mat-form-field>  
+          
+          <mat-form-field class="ingress-full-width">
+            <input matInput placeholder="Correo de notificación" formControlName="notificationEmail" type="text">
+            <div *ngIf="formDistributor.get('notificationEmail').errors && formDistributor.get('notificationEmail').dirty">
+              <p *ngIf="formDistributor.get('notificationEmail').hasError('required')">El campo es requerido</p>
+            </div>
+          </mat-form-field>     
+          
+          <mat-form-field class="ingress-full-width">
+            <input matInput placeholder="Correo de alertas" formControlName="alertEmail" type="text">
+            <div *ngIf="formDistributor.get('alertEmail').errors && formDistributor.get('alertEmail').dirty">
+              <p *ngIf="formDistributor.get('alertEmail').hasError('required')">El campo es requerido</p>
+            </div>
+          </mat-form-field>  
+
+        <div>
+            <button mat-button color="primary" (click)="saveDistributor()">Guardar</button>
+            <button mat-button color="primary" (click)="clearForm()">Cancelar</button>
+        </div>
+      </form>
+    </mat-card>
+</div>
+
+<div class="mat-elevation-z8" style="width:95%; margin: 1rem;  padding: 1rem;">
+  <input type="file" class="upload" (change)="uploadFile($event.target.files)">
+  <button mat-button color="primary" (click)="sendFile(file)">Enviar archivo</button>
+  <div *ngIf="loading" style="margin-left:10px">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+
+  <mat-paginator 
+    [length]="length"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="pageEvent = getServerData($event)">
+  </mat-paginator>
+
+  <table mat-table [dataSource]="dataSource">
+
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Nombre </th>
+    <td mat-cell *matCellDef="let element"> {{element.name}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="code">
+    <th mat-header-cell *matHeaderCellDef> Código </th>
+    <td mat-cell *matCellDef="let element"> {{element.code}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="notificationEmail">
+      <th mat-header-cell *matHeaderCellDef> Correo de notificación </th>
+      <td mat-cell *matCellDef="let element"> {{element.notificationEmail}} </td>
+    </ng-container >
+
+  <ng-container matColumnDef="alertEmail">
+    <th mat-header-cell *matHeaderCellDef> Correo de alerta </th>
+    <td mat-cell *matCellDef="let element"> {{element.alertEmail}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef> Acciones </th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button (click)="editDistributor(element)">
+        <mat-icon matTooltip="Editar distribuidor">edit</mat-icon>
+      </button>
+
+      <button mat-icon-button (click)="deleteDistributor(element)">
+        <mat-icon matTooltip="Eliminar distribuidor">delete</mat-icon>
+      </button>
+      
+      <button mat-icon-button (click)="uploadFileProduct()">
+        <mat-icon matTooltip="Subir archivo para productos">upload_file</mat-icon>
+      </button>
+      
+      <button mat-icon-button (click)="uploadFileChannel()">
+        <mat-icon matTooltip="Subir archivos para canales">upload_file</mat-icon>
+      </button>
+
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+</div>
+

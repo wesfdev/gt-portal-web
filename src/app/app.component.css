@@ -1,0 +1,17 @@
+.ingress-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.ingress-full-width {
+  width: 100%;
+}
+
+.mat-toolbar {
+  background: teal;
+  color: #fff
+}
+body{
+  color:#444;
+}
